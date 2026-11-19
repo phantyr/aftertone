@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: aftertone
+      POSTGRES_USER: aftertone
+      POSTGRES_PASSWORD: aftertone_dev
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - aftertone_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aftertone -d aftertone"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+volumes:
+  aftertone_pg:
